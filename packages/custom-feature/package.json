@@ -1,0 +1,11 @@
+{
+    "name": "custom-feature",
+    "version": "1.0.0",
+    "description": "",
+    "scripts": {
+        "build": "echo '\u001b[33mbuilding custom feature package...\u001b[0m'"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC"
+}

@@ -1,0 +1,20 @@
+{
+    "name": "nextauth-nestjs-example",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "dev": "concurrently \"npm run dev:client\" \"npm run dev:backend\"",
+        "dev:client": "nx dev client",
+        "dev:backend": "nx start:dev backend",
+        "prisma:migrate": "nx prisma:migrate backend",
+        "nx:graph": "npx nx graph"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "concurrently": "^8.2.1",
+        "nx": "^16.8.0"
+    }
+}
