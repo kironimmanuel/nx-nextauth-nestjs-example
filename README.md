@@ -1,1 +1,1 @@
-WIP
+# NextAuth, NestJS Monorepo Example
