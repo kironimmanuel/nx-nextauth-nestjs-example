@@ -16,30 +16,13 @@ async function refreshToken(token: JWT): Promise<JWT> {
     };
 }
 
-// async function refreshToken(token: JWT): Promise<JWT> {
-//     const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/auth/refresh', {
-//         method: 'POST',
-//         headers: {
-//             authorization: `Refresh ${token.backendTokens.refreshToken}`,
-//         },
-//     });
-//     console.log('refreshed');
-
-//     const response = await res.json();
-
-//     return {
-//         ...token,
-//         backendTokens: response,
-//     };
-// }
-
 export const options: NextAuthOptions = {
     providers: [
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
-                username: { label: 'Username', type: 'text', placeholder: 'jsmith' },
-                password: { label: 'Password', type: 'password' },
+                username: { label: 'Username', type: 'text', placeholder: 'Username' },
+                password: { label: 'Password', type: 'password', placeholder: 'Password' },
             },
             async authorize(credentials) {
                 if (!credentials?.username || !credentials?.password) return null;

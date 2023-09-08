@@ -19,9 +19,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <AuthProvider>
                     <div className='flex'>
                         <Sidebar />
-                        <AppBar />
+                        <div className='flex flex-col w-full'>
+                            <AppBar />
+                            <main>{children}</main>
+                        </div>
                     </div>
-                    {children}
                 </AuthProvider>
             </body>
         </html>

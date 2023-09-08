@@ -9,4 +9,7 @@ export class CreateUserDto {
 
   @IsString()
   password: string;
+
+  @IsString()
+  role: 'user' | 'designer' | 'tester' | 'developer' | 'admin' | 'manager';
 }

@@ -1,6 +1,7 @@
 'use client';
 
-import { signOut, useSession } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export default function AccessControl() {
@@ -8,9 +9,9 @@ export default function AccessControl() {
 
     if (session && session.user)
         return (
-            <div className='flex gap-4 ml-auto'>
-                <p className='text-sky-600'>{session.user.name}</p>
-                <button onClick={() => signOut()}>Sign out</button>
+            <div className='flex gap-4 items-center'>
+                <p className='font-semibold'>Hello, {session.user.name}</p>
+                <Image src='/images/profile.webp' width={46} height={46} className='rounded-full' alt='Profile Image' />
             </div>
         );
 

@@ -1,5 +1,6 @@
 import { JWT } from 'next-auth/jwt';
 import NextAuth from 'next-auth/next';
+import { Roles } from '../constants/role';
 
 declare module 'next-auth' {
     interface Session {
@@ -7,6 +8,7 @@ declare module 'next-auth' {
             id: number;
             name: string;
             email: string;
+            role: Roles;
         };
         backendTokens: {
             accessToken: string;
@@ -22,6 +24,7 @@ declare module 'next-auth/jwt' {
             id: number;
             name: string;
             email: string;
+            role: Roles;
         };
         backendTokens: {
             accessToken: string;
