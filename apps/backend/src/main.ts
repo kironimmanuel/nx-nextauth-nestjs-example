@@ -1,4 +1,5 @@
 import { ValidationPipe } from '@nestjs/common';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 
@@ -8,13 +9,20 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
-      // If the body contains properties that are not in the DTO, throw an error
       forbidNonWhitelisted: true,
-      // Automatically transform the body to the DTO type (id: '1' => id: 1)
       transform: true,
     }),
   );
 
+  const corsOptions: CorsOptions = {
+    origin: process.env.FRONTEND_DEV_URL,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  };
+
+  app.enableCors(corsOptions);
+
   await app.listen(8000);
 }
+
 bootstrap();

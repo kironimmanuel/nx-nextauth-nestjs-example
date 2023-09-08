@@ -8,7 +8,9 @@
         "dev:client": "nx dev client",
         "dev:backend": "nx start:dev backend",
         "prisma:migrate": "nx prisma:migrate backend",
-        "nx:graph": "npx nx graph"
+        "prisma:studio": "nx prisma:studio backend",
+        "nx:graph": "npx nx graph",
+        "gen:base64": "python tools/key_base64/gen_base64.py"
     },
     "keywords": [],
     "author": "",

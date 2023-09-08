@@ -4,6 +4,9 @@ import { compare } from 'bcrypt';
 import { UserService } from 'src/user/user.service';
 import { LoginUserDto } from './dto/auth.dto';
 
+// 1 day
+const EXPIRE_TIME = 1000 * 60 * 60 * 24;
+
 @Injectable()
 export class AuthService {
   constructor(
@@ -22,15 +25,16 @@ export class AuthService {
 
     return {
       user,
-      backendToken: {
+      backendTokens: {
         accessToken: await this.jwtService.signAsync(payload, {
-          expiresIn: '1h',
+          expiresIn: '1d',
           secret: process.env.JWT_SECRET_KEY,
         }),
         refreshToken: await this.jwtService.signAsync(payload, {
           expiresIn: '7d',
           secret: process.env.JWT_REFRESH_TOKEN_KEY,
         }),
+        expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
       },
     };
   }
@@ -40,10 +44,30 @@ export class AuthService {
 
     if (user && (await compare(dto.password, user.password))) {
       // !Important: Extract the password from the user object
+
       const { password, ...result } = user;
       return result;
     }
 
     throw new UnauthorizedException('Invalid credentials');
+  }
+
+  async refreshToken(user: any) {
+    const payload = {
+      username: user.username,
+      sub: user.sub,
+    };
+
+    return {
+      accessToken: await this.jwtService.signAsync(payload, {
+        expiresIn: '1d',
+        secret: process.env.JWT_SECRET_KEY,
+      }),
+      refreshToken: await this.jwtService.signAsync(payload, {
+        expiresIn: '7d',
+        secret: process.env.JWT_REFRESH_TOKEN_KEY,
+      }),
+      expiresIn: new Date().setTime(new Date().getTime() + EXPIRE_TIME),
+    };
   }
 }
