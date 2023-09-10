@@ -17,12 +17,12 @@ export default function AccessControl() {
 
     return (
         <div className='flex gap-4 ml-auto items-center'>
-            <Link href='/api/auth/signin' className='uppercase hover:text-kb-primary font-semibold transition'>
+            <Link href='/api/auth/signin' className='uppercase hover:underline font-semibold transition'>
                 Login
             </Link>
             <Link
                 href='/signup'
-                className='uppercase bg-kb-primary text-white py-2 px-4 rounded-md font-semibold transition'>
+                className='uppercase bg-kb-primary hover:bg-kb-secondary text-white py-2 px-4 rounded-md font-semibold transition'>
                 Register
             </Link>
         </div>

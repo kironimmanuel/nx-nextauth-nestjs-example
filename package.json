@@ -4,7 +4,7 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "concurrently \"npm run dev:client\" \"npm run dev:backend\"",
+        "dev:all": "concurrently \"npm run dev:client\" \"npm run dev:backend\"",
         "dev:client": "nx dev client",
         "dev:backend": "nx start:dev backend",
         "prisma:migrate": "nx prisma:migrate backend",

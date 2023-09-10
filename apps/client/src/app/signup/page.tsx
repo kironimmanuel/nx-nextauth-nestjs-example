@@ -1,17 +1,18 @@
 'use client';
 
 import { Button } from '@/components/Button';
-import { InputBox } from '@/components/InputBox';
+import { FormInput } from '@/components/FormInput';
 import axios from 'axios';
 import { signIn } from 'next-auth/react';
 import Link from 'next/link';
 import React, { useRef } from 'react';
-import { ROLES as roles } from '../../constants/role';
+import { Role, ROLES as roles } from '../../constants/role';
 
 interface FormInputs {
     name: string;
     email: string;
     password: string;
+    role: Role;
 }
 
 export default function SignUpPage() {
@@ -20,7 +21,7 @@ export default function SignUpPage() {
             name: data.current.name,
             email: data.current.email,
             password: data.current.password,
-            role: 'user',
+            role: data.current.role,
         });
 
         if (res.status !== 201) {
@@ -31,15 +32,22 @@ export default function SignUpPage() {
         signIn('credentials', {
             email: data.current.email,
             password: data.current.password,
-            callbackUrl: '/',
+            callbackUrl: '/dashboard',
             redirect: true,
         });
+        // signIn('email', {
+        //     redirect: true,
+        //     email: data.current.email,
+        //     callbackUrl: '/dashboard',
+        //     password: data.current.password,
+        // });
     };
 
     const data = useRef<FormInputs>({
         name: '',
         email: '',
         password: '',
+        role: 'user',
     });
 
     return (
@@ -47,7 +55,7 @@ export default function SignUpPage() {
             <h3 className='p-5 font-semibold'>Register</h3>
             <hr />
             <div className='p-5 flex flex-col gap-6'>
-                <InputBox
+                <FormInput
                     autoComplete='off'
                     name='name'
                     labelText='Username'
@@ -55,14 +63,14 @@ export default function SignUpPage() {
                     onChange={e => (data.current.name = e.target.value)}
                     placeholder='Your username'
                 />
-                <InputBox
+                <FormInput
                     name='email'
                     labelText='Email'
                     required
                     onChange={e => (data.current.email = e.target.value)}
                     placeholder='Your email'
                 />
-                <InputBox
+                <FormInput
                     name='password'
                     labelText='Password'
                     type='password'
@@ -87,8 +95,10 @@ export default function SignUpPage() {
                     </select>
                 </div>
                 <div className='flex justify-end items-center gap-3'>
-                    <Link href='/'>Cancel</Link>
-                    <Button onClick={register} variant='success'>
+                    <Link href='/' className='hover:underline'>
+                        Cancel
+                    </Link>
+                    <Button onClick={register} variant='success' ariaLabel='Submit your registration'>
                         Submit
                     </Button>
                 </div>

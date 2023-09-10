@@ -11,4 +11,9 @@ export class UserController {
   async getUserProfile(@Param('id') id: number) {
     return await this.userService.findById(id);
   }
+
+  @Get()
+  async getAllUsers() {
+    return await this.userService.findAll();
+  }
 }

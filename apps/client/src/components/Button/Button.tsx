@@ -1,64 +1,42 @@
 const getVariant = (variant?: VariantType) => {
     switch (variant) {
         case 'primary':
-            return 'bg-violet-500 hover:bg-violet-700  text-white shadow shadow-violet-600/25 hover:shadow-violet-600/75';
-        case 'danger':
-            return 'bg-red-500 hover:bg-red-700 text-white  shadow shadow-red-600/25 hover:shadow-red-600/75';
+            return 'bg-kb-primary hover:bg-kb-secondary text-white';
         case 'success':
-            return 'bg-green-500 hover:bg-green-700 text-white shadow shadow-green-600/25 hover:shadow-green-600/75 ';
-        case 'warning':
-            return 'bg-amber-500 hover:bg-amber-700 text-white shadow shadow-yellow-600/25 hover:shadow-yellow-600/75 ';
-        case 'outline-danger':
-            return 'bg-white text-red-500 border border-red-500 hover:text-white hover:bg-red-700  ';
-        case 'outline-danger':
-            return 'bg-white text-red-500 border border-red-500 hover:text-white hover:bg-red-700  ';
-        case 'outline-success':
-            return 'bg-white text-green-500 border border-green-500 hover:text-white hover:bg-green-700  ';
-        case 'outline-warning':
-            return 'bg-white text-amber-400 border border-amber-500 hover:text-white hover:bg-amber-500  ';
+            return 'bg-kb-success-light hover:bg-kb-success-dark text-white';
+        case 'danger':
+            return 'bg-kb-error-light hover:bg-kb-error-dark text-white';
         case 'outline-primary':
-            return 'bg-white text-violet-500 border border-violet-500 hover:text-white hover:bg-violet-700  ';
-
+            return 'bg-transparent border border-kb-primary hover:bg-kb-primary text-kb-primary hover:text-white';
+        case 'outline-success':
+            return 'bg-transparent border border-kb-success-light hover:bg-kb-success-light text-kb-success-light hover:text-white';
+        case 'outline-danger':
+            return 'bg-transparent border border-kb-error-light hover:bg-kb-error-light text-kb-error-light hover:text-white';
         default:
             return 'bg-violet-500 hover:bg-violet-700 text-white shadow shadow-violet-600/25 hover:shadow-violet-600/75';
     }
 };
 
-type VariantType =
-    | 'primary'
-    | 'danger'
-    | 'success'
-    | 'warning'
-    | 'outline-danger'
-    | 'outline-warning'
-    | 'outline-success'
-    | 'outline-primary';
+type VariantType = 'primary' | 'success' | 'danger' | 'outline-primary' | 'outline-success' | 'outline-danger';
+
+type ButtonType = 'button' | 'submit' | 'reset';
 
 export interface IButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     className?: string;
     children?: React.ReactNode;
     variant?: VariantType;
-    square?: boolean;
-    paddingLess?: boolean;
+    type?: ButtonType;
+    ariaLabel: string;
 }
 
-export default function Button({
-    className,
-    children,
-    variant,
-    square,
-    paddingLess,
-    type = 'button',
-    ...props
-}: IButtonProps) {
+export default function Button({ className, children, variant, type = 'button', ariaLabel, ...props }: IButtonProps) {
     return (
         <button
             {...props}
             type={type}
+            aria-label={ariaLabel}
             className={`
-          ${getVariant(variant)}  transition duration-75  ${!paddingLess && 'py-2 px-4'}  ${
-              !square && 'rounded-md'
-          } active:scale-95 ${className} `}>
+          ${getVariant(variant)} transition py-2 px-4 rounded-md active:scale-95 ${className}`}>
             {children}
         </button>
     );
